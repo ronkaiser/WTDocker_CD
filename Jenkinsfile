@@ -13,7 +13,6 @@ pipeline {
       steps {
         cleanWs()
         checkout scm
-        sh 'echo $BUILD_NUMBER'
       }
     }
 

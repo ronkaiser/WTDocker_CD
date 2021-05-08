@@ -1,0 +1,40 @@
+--- # node weight tracker app definition
+- hosts: webservers
+  become: yes
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: ensure docker deamon is running
+      service:
+        name: docker
+        state: started
+      become: true
+
+    - name: create env file
+      copy:
+        dest: ".env"
+        content: |
+          # Host configuration
+          PORT=8080
+          HOST=0.0.0.0
+          NODE_ENV=development
+          HOST_URL=http://{{ host_url }}:8080
+          COOKIE_ENCRYPT_PWD=superAwesomePasswordStringThatIsAtLeast32CharactersLong!
+          # Okta configuration
+          OKTA_ORG_URL=https://{{ domain }}
+          OKTA_CLIENT_ID={{ clientid }}
+          OKTA_CLIENT_SECRET={{ secret }}
+          # Postgres configuration
+          PGHOST={{ servername }}
+          PGUSERNAME=postgres@{{ servername }}
+          PGDATABASE=postgres
+          PGPASSWORD={{ password }}
+          PGPORT=5432
+
+    - name: Remove Stoped docker containers
+      shell: docker rm --force $(docker ps -a -q);
+      ignore_errors: yes
+
+    - name: run image
+        shell: docker run -d --env-file .env -p 8080:8080 --restart unless-stopped ronkaiser86/wtapp:latest

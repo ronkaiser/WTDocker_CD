@@ -37,5 +37,5 @@
       ignore_errors: yes
 
     - name: run image
-      shell: docker run -d --env-file .env -p 8080:8080 --restart unless-stopped ronkaiser86/wtapp:17
+      shell: docker run -d --env-file .env -p 8080:8080 --restart unless-stopped ronkaiser86/wtapp:18
       throttle: 1

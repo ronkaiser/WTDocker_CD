@@ -13,6 +13,7 @@ pipeline {
       steps {
         cleanWs()
         checkout scm
+        sh 'echo $BUILD_NUMBER'
       }
     }
 
@@ -34,7 +35,6 @@ pipeline {
     stage('Production deployment') {
       steps {
         ansiblePlaybook colorized: true, credentialsId: '9328c1b9-1174-4afe-9d7c-71b5b6945496', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'deploy.yml', vaultCredentialsId: 'vaultpass_id'
-        sh 'echo $BUILD_NUMBER'
       }
     }
   }

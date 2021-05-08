@@ -1,4 +1,4 @@
 [webservers]
-myTFVM      ansible_connection=ssh      ansible_user=ansible
-myTFVM2     ansible_connection=ssh      ansible_user=ansible
-myTFVM3     ansible_connection=ssh      ansible_user=ansible
+myTFVM      ansible_connection=ssh      ansible_user=linux
+myTFVM2     ansible_connection=ssh      ansible_user=linux
+myTFVM3     ansible_connection=ssh      ansible_user=linux

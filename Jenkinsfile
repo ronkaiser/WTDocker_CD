@@ -29,6 +29,13 @@ pipeline {
         input "Deploy to prod?"
       }
     }
+
+    // approval to deploy to production environment
+    stage('Deploy approval') {
+      steps {
+        ansiblePlaybook credentialsId: '9328c1b9-1174-4afe-9d7c-71b5b6945496', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'deploy.yml', vaultCredentialsId: 'vaultpass_id'
+      }
+    }
   }
   post {
     always {
